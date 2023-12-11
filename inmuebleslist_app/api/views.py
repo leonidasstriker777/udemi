@@ -44,14 +44,14 @@ def inmueble_detalle(request, pk):
         
         
     if request.method == 'DELETE':
-        inmueble = Inmueble.objects.get(pk=pk)
-        inmueble.delete()
+        try:
+            inmueble = Inmueble.objects.get(pk=pk)
+            inmueble.delete()
+        except Inmueble.DoesNotExist:
+            return Response({'Error': 'El inmueble no existe'}, status = status.HTTP_404_NOT_FOUND)
+    
         
-        data = {
-            'resultado': True
-        }
-        
-        return Response(data) 
+        return Response(status=status.HTTP_204_NO_CONTENT) 
         
 
 
