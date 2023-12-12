@@ -2,10 +2,15 @@ from rest_framework import serializers
 from inmuebleslist_app.models import Inmueble
 
 
+def column_longitud(value):
+    if len(value) < 2:
+        raise serializers.ValidationError('La longitud debe ser mayor a 2 caracteres')
+    
+
 class InmuebleSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    direccion = serializers.CharField()
-    pais = serializers.CharField()
+    direccion = serializers.CharField(validators=[column_longitud])
+    pais = serializers.CharField(validators=[column_longitud])
     description = serializers.CharField()
     imagen = serializers.CharField()
     active = serializers.BooleanField()
