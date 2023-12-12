@@ -3,23 +3,33 @@ from inmuebleslist_app.models import Inmueble
 
 
 class InmuebleSerializer(serializers.ModelSerializer):
+    
+    longitud_direccion = serializers.SerializerMethodField()
+        
+    
     class Meta:
         model = Inmueble
         fields = "__all__"
         #fields = ['id', 'pais', 'imagen', 'active']
         #exclude = ['id']
         
+    
+    def get_longitud_direccion(self, object):
+        cantidad_caracteres = len(object.direccion)
+        return cantidad_caracteres
+        
+        
     def create(self, validate_data):
         return Inmueble.objects.create(**validate_data)
     
 
-    
     
     def validate(self, data):
         if data['direccion'] == data['pais']:
             raise serializers.ValidationError('La direccion y pais deben ser diferentes')
         else:
             return data
+        
         
     def validate_imagen(self, data):
         if len(data) < 2:
