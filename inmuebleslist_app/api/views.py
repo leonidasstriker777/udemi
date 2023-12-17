@@ -1,13 +1,41 @@
-from rest_framework.response import Response
-from inmuebleslist_app.models import Edificacion, Empresa
-from inmuebleslist_app.api.serializers import EdificacionSerializer, EmpresaSerializer
-#from rest_framework.decorators import api_view
-from rest_framework import status  
-from rest_framework.views import APIView
+#from rest_framework.decorators        import api_view
+from rest_framework.views              import APIView
+from rest_framework.response           import Response
+from rest_framework                    import status  
+from inmuebleslist_app.models          import (Edificacion, Empresa, Comentario, )
+from inmuebleslist_app.api.serializers import (EdificacionSerializer, EmpresaSerializer, ComentarioSerializer, )
+from rest_framework                    import (generics, mixins, )
 
 
 
+####################
+# VISTAS GENERICAS #
+####################
+class ComentarioList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = Comentario.objects.all()
+    serializer_class = ComentarioSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class ComentarioDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
+    queryset = Comentario.objects.all()
+    serializer_class = ComentarioSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+    
+        
+        
+#################################
+# VISTAS NORMALES CON API VIEW  #
+#################################
 class EmpresaAV(APIView):
+    
     def get(self, request):
         empresas = Empresa.objects.all()
         # Aqui serializo el objeto empresa que deseo obtener desde el Servidor.
@@ -25,6 +53,7 @@ class EmpresaAV(APIView):
 
 
 class EmpresaDetalleAV(APIView):
+    
     def get(self, request, pk):
         try:
             empresa = Empresa.objects.get(pk=pk)
@@ -33,7 +62,6 @@ class EmpresaDetalleAV(APIView):
         
         serializer = EmpresaSerializer(empresa, context={'request': request})
         return Response(serializer.data)
-    
     
     def put(self, request, pk):
         try:
@@ -48,7 +76,6 @@ class EmpresaDetalleAV(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
-        
         
     def delete(self, request, pk):
         try:
@@ -107,92 +134,4 @@ class EdificacionDetalleAV(APIView):
             return Response({'Error': 'El inmueble no existe'}, status = status.HTTP_404_NOT_FOUND)
         inmueble.delete()
         return Response(status=status.HTTP_204_NO_CONTENT) 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# @api_view(['GET', 'POST']) 
-# def inmueble_list(request):
-    
-#     if request.method == 'GET':
-#         inmuebles = Inmueble.objects.all()
-#         serializer = InmuebleSerializer(inmuebles, many=True) 
-#         return Response(serializer.data)   
-    
-#     if request.method == 'POST':
-#         de_serializer = InmuebleSerializer(data=request.data)
-#         if de_serializer.is_valid():   
-#             de_serializer.save()
-#             return Response(de_serializer.data)
-#         else:
-#             return Response(de_serializer.errors) 
-
-
-# @api_view(['GET', 'PUT', 'DELETE']) 
-# def inmueble_detalle(request, pk):
-    
-#     if request.method == 'GET':
-#         try:
-#             inmueble = Inmueble.objects.get(pk=pk)
-#             serializer = InmuebleSerializer(inmueble)
-#             return Response(serializer.data)
-#         except Inmueble.DoesNotExist:
-#             return Response({'Error': 'El inmueble no existe'}, status = status.HTTP_404_NOT_FOUND)
-    
-    
-#     if request.method == 'PUT':
-#         inmueble = Inmueble.objects.get(pk=pk)
-#         de_serializer = InmuebleSerializer(inmueble, data=request.data)
-#         if de_serializer.is_valid():   
-#             de_serializer.save()
-#             return Response(de_serializer.data)
-#         else:
-#             return Response(de_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
-        
-        
-#     if request.method == 'DELETE':
-#         try:
-#             inmueble = Inmueble.objects.get(pk=pk)
-#             inmueble.delete()
-#         except Inmueble.DoesNotExist:
-#             return Response({'Error': 'El inmueble no existe'}, status = status.HTTP_404_NOT_FOUND)
-    
-        
-#         return Response(status=status.HTTP_204_NO_CONTENT) 
-        
-
-
-
 
