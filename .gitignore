@@ -1,0 +1,14 @@
+*.log
+*.pot
+*.pyc
+*.mor
+*.ftp
+*.vscode
+static/fncsxls/*.xls
+__pycache__/
+local_settings.py
+db.sqlite3
+media
+log/*
+**/migrations/**
+**/tmp/**
