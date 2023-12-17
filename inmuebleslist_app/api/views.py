@@ -5,6 +5,8 @@ from rest_framework                    import status
 from inmuebleslist_app.models          import (Edificacion, Empresa, Comentario, )
 from inmuebleslist_app.api.serializers import (EdificacionSerializer, EmpresaSerializer, ComentarioSerializer, )
 from rest_framework                    import (generics, mixins, )
+from rest_framework                    import viewsets
+from django.shortcuts                  import get_object_or_404
 
 
 
@@ -37,27 +39,23 @@ class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 
-####################
-# VISTAS GENERICAS #
-####################
-# class ComentarioList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
-#     queryset = Comentario.objects.all()
-#     serializer_class = ComentarioSerializer
+######################################
+# TRABAJAMOS CON ROUTES EN LAS URLS  #
+######################################
+class EmpresaVS(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Empresa.objects.all()
+        serializer = EmpresaSerializer(queryset, many=True)
+        return Response(serializer.data)         
     
-#     def get(self, request, *args, **kwargs):
-#         return self.list(request, *args, **kwargs)
-    
-#     def post(self, request, *args, **kwargs):
-#         return self.create(request, *args, **kwargs)
+    def retrieve(self, request, pk=None):
+        queryset = Empresa.objects.all()
+        edificacionlist = get_object_or_404(queryset, pk=pk)
+        serializer = EmpresaSerializer(edificacionlist)
+        return Response(serializer.data)
 
 
-# class ComentarioDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
-#     queryset = Comentario.objects.all()
-#     serializer_class = ComentarioSerializer
-    
-#     def get(self, request, *args, **kwargs):
-#         return self.retrieve(request, *args, **kwargs)
-    
+
         
         
 #################################
@@ -164,3 +162,24 @@ class EdificacionDetalleAV(APIView):
         inmueble.delete()
         return Response(status=status.HTTP_204_NO_CONTENT) 
 
+
+####################
+# VISTAS GENERICAS #
+####################
+# class ComentarioList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+#     queryset = Comentario.objects.all()
+#     serializer_class = ComentarioSerializer
+    
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+    
+#     def post(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
+
+
+# class ComentarioDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
+#     queryset = Comentario.objects.all()
+#     serializer_class = ComentarioSerializer
+    
+#     def get(self, request, *args, **kwargs):
+#         return self.retrieve(request, *args, **kwargs)
