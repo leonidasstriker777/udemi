@@ -16,6 +16,10 @@ urlpatterns = [
     path('edificacion/', EdificacionAV.as_view(), name='edificacion'),
     path('edificacion/<int:pk>', EdificacionDetalleAV.as_view(), name='edificacion-detail'),
     
+    
+    ##########################################################################
+    # Route se utiliza para path simples no complejos, con identificadores.  #
+    ##########################################################################
     path('', include(router.urls)),
     # path('empresa/', EmpresaAV.as_view(), name='empresa'),
     # path('empresa/<int:pk>', EmpresaDetalleAV.as_view(), name='empresa-detail'),
