@@ -49,6 +49,8 @@ class ComentarioList(generics.ListCreateAPIView):
     #queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
     
+    permission_classes = [IsAuthenticated]
+    
     # Reemplaza el query por defecto.
     def get_queryset(self):
         pk = self.kwargs['pk']
