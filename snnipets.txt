@@ -13,3 +13,4 @@ python manage.py createsuperuser
 python manage.py runserver
 pip install djangorestframework
 python.exe -m pip install --upgrade pip
+python manage.py startapp user_app

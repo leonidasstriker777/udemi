@@ -10,6 +10,7 @@ urlpatterns = [
     path('tienda/', include('inmuebleslist_app.api.urls'), ),
     
     # Pantalla de Login para rest_framework
-    path('api-auth', include('rest_framework.urls')),
+    # path('api-auth', include('rest_framework.urls')),
+    path('account/', include('user_app.api.urls')),
     
 ]
