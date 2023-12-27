@@ -1,0 +1,15 @@
+cd C:\django-rest
+python -m venv menv
+menv\Scripts\activate
+pip freeze
+menv\Scripts\deactivate
+pip install Django==3.2.8
+django-admin startproject inmuebles
+cd inmuebles
+python manage.py startapp inmuebleslist_app
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+pip install djangorestframework
+python.exe -m pip install --upgrade pip
