@@ -10,7 +10,8 @@ from django.shortcuts                  import get_object_or_404
 from rest_framework.exceptions         import ValidationError
 from rest_framework.permissions        import IsAuthenticated
 from inmuebleslist_app.api.permissions import (IsAdminOrReadOnly, IsComentarioUserOrReadOnly, )
-from rest_framework.throttling         import (UserRateThrottle, AnonRateThrottle, )
+from rest_framework.throttling         import (UserRateThrottle, AnonRateThrottle, ScopedRateThrottle, )
+from inmuebleslist_app.api.throttling  import (ComentarioCreateThrottle, ComentarioListThrottle, )
 
 
 
@@ -21,6 +22,9 @@ class ComentarioCreate(generics.CreateAPIView):
     serializer_class = ComentarioSerializer
     
     permission_classes = [IsAuthenticated]
+    
+    
+    throttle_classes = [ComentarioCreateThrottle]
     
     def get_queryset(self):
         return Comentario.objects.all()
@@ -55,7 +59,9 @@ class ComentarioList(generics.ListCreateAPIView):
     
     #permission_classes = [IsAuthenticated]
     
-    throttle_classes = [UserRateThrottle, AnonRateThrottle]
+    throttle_classes = [ComentarioListThrottle, AnonRateThrottle]
+    
+    #throttle_classes = [UserRateThrottle, AnonRateThrottle]
     
     # Reemplaza el query por defecto.
     def get_queryset(self):
@@ -70,8 +76,9 @@ class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsComentarioUserOrReadOnly]
 
     # Posibilidad que un usuario anonimo y logueado verifiquen
-    throttle_classes = [UserRateThrottle, AnonRateThrottle]
-
+    # throttle_classes = [UserRateThrottle, AnonRateThrottle]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope   = 'comentario-detail'
 
 ######################################################
 # TRABAJAMOS CON ROUTES EN LAS URLS Y VIEWSET MODELS #
