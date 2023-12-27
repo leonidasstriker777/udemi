@@ -10,6 +10,7 @@ from django.shortcuts                  import get_object_or_404
 from rest_framework.exceptions         import ValidationError
 from rest_framework.permissions        import IsAuthenticated
 from inmuebleslist_app.api.permissions import (IsAdminOrReadOnly, IsComentarioUserOrReadOnly, )
+from rest_framework.throttling         import (UserRateThrottle, AnonRateThrottle, )
 
 
 
@@ -51,7 +52,10 @@ class ComentarioList(generics.ListCreateAPIView):
     #queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
     
-    permission_classes = [IsAuthenticated]
+    
+    #permission_classes = [IsAuthenticated]
+    
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
     
     # Reemplaza el query por defecto.
     def get_queryset(self):
@@ -65,6 +69,8 @@ class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
     
     permission_classes = [IsComentarioUserOrReadOnly]
 
+    # Posibilidad que un usuario anonimo y logueado verifiquen
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
 
 
 ######################################################
