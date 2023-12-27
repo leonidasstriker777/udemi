@@ -14,12 +14,10 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     
     
-    # LOGIUT USER
+    # TOKEN ACCESS
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # LOGIUT USER
+    # TOKEN REFRESH
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     
-    
-
     
 ]
