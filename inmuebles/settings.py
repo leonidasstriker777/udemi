@@ -104,7 +104,8 @@ REST_FRAMEWORK = {
     # 'DEFAULT_AUTHENTICATION_CLASSES':[
     #     'rest_framework.authentication.BasicAuthentication',
     # ]
-    
+
+    # Authentication con Tokens JWT
     'DEFAULT_AUTHENTICATION_CLASSES':[
         #'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -115,6 +116,7 @@ REST_FRAMEWORK = {
     #     'rest_framework.throttling.AnonRateThrottle',
     #     'rest_framework.throttling.UserRateThrottle',
     # ],
+
     # Parametrizar cantidad de request que un usuario no authenticado puede recibir.
     'DEFAULT_THROTTLE_RATES':{
         'anon': '10000/day',
@@ -122,7 +124,12 @@ REST_FRAMEWORK = {
         'comentario-create': '20000/day',
         'comentario-list': '80000/day',
         'comentario-detail': '30000/day',
-    }
+    },
+
+    # Paginacion por defecto
+    #'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.LimitOffsetPagination',
+    #'PAGE_SIZE': 100,
+
 }
 
 
@@ -132,6 +139,9 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=365),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=365),
 }
+
+
+
 
 
 

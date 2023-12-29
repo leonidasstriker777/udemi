@@ -1,6 +1,6 @@
 # Libraries
-#from rest_framework.decorators        import api_view
 from rest_framework.views              import APIView
+#from rest_framework.decorators        import api_view
 from rest_framework.response           import Response
 from rest_framework                    import status  
 from inmuebleslist_app.models          import (Edificacion, Empresa, Comentario, )
@@ -15,6 +15,7 @@ from rest_framework.throttling         import (UserRateThrottle, AnonRateThrottl
 from inmuebleslist_app.api.throttling  import (ComentarioCreateThrottle, ComentarioListThrottle, )
 from django_filters.rest_framework     import DjangoFilterBackend
 from rest_framework                    import filters
+from inmuebleslist_app.api.pagination  import EdificacionPagination
 
 # 1. Classes
 
@@ -148,6 +149,8 @@ class EdificacionList(generics.ListAPIView):
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     #filterset_fields = ['direccion', 'empresa__nombre']
     search_fields = ['direccion', 'empresa__nombre']
+    # Agregar paginacion parametrizada
+    pagination_class = EdificacionPagination
 
 
 # 1.9 Class EdificacionAV
