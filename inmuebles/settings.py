@@ -79,15 +79,28 @@ WSGI_APPLICATION = 'inmuebles.wsgi.application'
 AUTH_USER_MODEL = 'user_app.Account'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# SQLITE CONEXION
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
+# POSTGRES CONEXION
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME':'udemy',
+        'USER': 'postgresql',
+        'PASSWORD': 'postgresql',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
+
 
 
 # Password validation

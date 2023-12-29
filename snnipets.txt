@@ -17,9 +17,9 @@ python manage.py startapp user_app
 pip install djangorestframework_simplejwt
 pip install django-filter
 Email: admin@gmail.com
-Username: leo
-First name: leonardo
-Last name: saucedo
+Username: admin
+First name: first_name
+Last name: last_name
 Password: pass
-
+pip install psycopg2-binary
 
