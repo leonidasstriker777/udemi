@@ -24,3 +24,5 @@ Password: pass
 pip install psycopg2-binary
 Ob.: Se debe eliminar todos los initials de la carpeta migration, no asi los demas elementos.
 Ob.: Configurar cuenta Heroku - Integre con railway 
+pip install whitenoise
+pip install gunicorn
