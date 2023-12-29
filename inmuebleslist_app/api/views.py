@@ -15,7 +15,7 @@ from rest_framework.throttling         import (UserRateThrottle, AnonRateThrottl
 from inmuebleslist_app.api.throttling  import (ComentarioCreateThrottle, ComentarioListThrottle, )
 from django_filters.rest_framework     import DjangoFilterBackend
 from rest_framework                    import filters
-from inmuebleslist_app.api.pagination  import EdificacionPagination
+from inmuebleslist_app.api.pagination  import (EdificacionPagination, EdificacionLOPagination, )
 
 # 1. Classes
 
@@ -150,8 +150,9 @@ class EdificacionList(generics.ListAPIView):
     #filterset_fields = ['direccion', 'empresa__nombre']
     search_fields = ['direccion', 'empresa__nombre']
     # Agregar paginacion parametrizada
-    pagination_class = EdificacionPagination
-
+    #pagination_class = EdificacionPagination
+    # Pagination con Offset y Limit  -> http://127.0.0.1:8000/tienda/edificacion/list/?limit=60&offset=5  del 61 al 66
+    pagination_class = EdificacionLOPagination
 
 # 1.9 Class EdificacionAV
 class EdificacionAV(APIView):
