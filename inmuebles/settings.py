@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'user_app',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -104,11 +105,11 @@ REST_FRAMEWORK = {
     # ],
     # Parametrizar cantidad de request que un usuario no authenticado puede recibir.
     'DEFAULT_THROTTLE_RATES':{
-        'anon': '5/day',
-        'user': '10/day',
-        'comentario-create': '2/day', 
-        'comentario-list': '8/day',  
-        'comentario-detail': '3/day',  
+        'anon': '10000/day',
+        'user': '10000/day',
+        'comentario-create': '20000/day',
+        'comentario-list': '80000/day',
+        'comentario-detail': '30000/day',
     }
 }
 

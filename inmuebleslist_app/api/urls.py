@@ -2,39 +2,24 @@
 from django.urls                  import path, include
 from rest_framework.routers       import DefaultRouter
 from inmuebleslist_app.api.views  import (EdificacionAV, EdificacionDetalleAV, EmpresaAV,\
-EmpresaDetalleAV, ComentarioList, ComentarioDetail, ComentarioCreate, EmpresaVS, UsuarioComentario, )
-
+EmpresaDetalleAV, ComentarioList, ComentarioDetail, ComentarioCreate, EmpresaVS, UsuarioComentario, \
+EdificacionList, )
 
 router = DefaultRouter()
 router.register('empresa', EmpresaVS, basename='empresa')
 
 urlpatterns = [
-    
-    #################################
-    # VISTAS NORMALES CON API VIEW  #
-    #################################
     path('edificacion/', EdificacionAV.as_view(), name='edificacion'),
     path('edificacion/<int:pk>', EdificacionDetalleAV.as_view(), name='edificacion-detail'),
-    
-    
-    ##########################################################################
-    # Route se utiliza para path simples no complejos, con identificadores.  #
-    ##########################################################################
+    path('edificacion/list/', EdificacionList.as_view(), name='edificacion-list'),
+
     path('', include(router.urls)),
     # path('empresa/', EmpresaAV.as_view(), name='empresa'),
     # path('empresa/<int:pk>', EmpresaDetalleAV.as_view(), name='empresa-detail'),
-    
-    
-    ####################
-    # VISTAS GENERICAS #
-    ####################
+
     path('edificacion/<int:pk>/comentario-create', ComentarioCreate.as_view(), name='comentario-create'),
     path('edificacion/<int:pk>/comentario/', ComentarioList.as_view(), name='comentario-list'),
     path('edificacion/comentario/<int:pk>', ComentarioDetail.as_view(), name='comentario-detail'),
-    
-    # Path antiguo con Kwargs
     #path('edificacion/comentarios/<str:username>/', UsuarioComentario.as_view(), name='usuario-comentario-detail'),
-    
-    # Obtiene el valor directamente desde un parametro en la URL   
     path('edificacion/comentarios/', UsuarioComentario.as_view(), name='usuario-comentario-detail'),
 ]
