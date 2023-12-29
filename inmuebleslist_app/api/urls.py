@@ -2,7 +2,7 @@
 from django.urls                  import path, include
 from rest_framework.routers       import DefaultRouter
 from inmuebleslist_app.api.views  import (EdificacionAV, EdificacionDetalleAV, EmpresaAV,\
-EmpresaDetalleAV, ComentarioList, ComentarioDetail, ComentarioCreate, EmpresaVS, )
+EmpresaDetalleAV, ComentarioList, ComentarioDetail, ComentarioCreate, EmpresaVS, UsuarioComentario, )
 
 
 router = DefaultRouter()
@@ -31,4 +31,10 @@ urlpatterns = [
     path('edificacion/<int:pk>/comentario-create', ComentarioCreate.as_view(), name='comentario-create'),
     path('edificacion/<int:pk>/comentario/', ComentarioList.as_view(), name='comentario-list'),
     path('edificacion/comentario/<int:pk>', ComentarioDetail.as_view(), name='comentario-detail'),
+    
+    # Path antiguo con Kwargs
+    #path('edificacion/comentarios/<str:username>/', UsuarioComentario.as_view(), name='usuario-comentario-detail'),
+    
+    # Obtiene el valor directamente desde un parametro en la URL   
+    path('edificacion/comentarios/', UsuarioComentario.as_view(), name='usuario-comentario-detail'),
 ]

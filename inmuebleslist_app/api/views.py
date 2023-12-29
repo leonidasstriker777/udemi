@@ -15,6 +15,27 @@ from inmuebleslist_app.api.throttling  import (ComentarioCreateThrottle, Comenta
 
 
 
+class UsuarioComentario(generics.ListAPIView):
+    serializer_class = ComentarioSerializer
+    
+    
+    # def get_queryset(self):
+    #     # Parametro que envia el cliente
+    #     username = self.kwargs['username']
+    #     # Retorna todos los comentarios de un determinado usuario
+    #     return Comentario.objects.filter(comentario_user__username=username)
+        
+    # Obtiene el valor directamente desde un parametro en la URL    
+    def get_queryset(self):
+        # Parametro capturado desde la url
+        username = self.request.query_params.get('username', None)
+        # Retorna todos los comentarios de un determinado usuario
+        return Comentario.objects.filter(comentario_user__username=username)
+        
+
+
+
+
 ###############################
 # VISTAS GENERICAS MODIFICADA #
 ###############################
