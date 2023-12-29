@@ -13,3 +13,8 @@ log/*
 **/migrations/**
 **/tmp/**
 settings.json
+misc.xml
+modules.xml
+udemi.iml
+vsc.xml
+profile_settings.xml

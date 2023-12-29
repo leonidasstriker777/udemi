@@ -16,3 +16,10 @@ python.exe -m pip install --upgrade pip
 python manage.py startapp user_app
 pip install djangorestframework_simplejwt
 pip install django-filter
+Email: admin@gmail.com
+Username: leo
+First name: leonardo
+Last name: saucedo
+Password: pass
+
+
