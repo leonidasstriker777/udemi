@@ -1,9 +1,14 @@
-from pathlib import Path
+# Libraries
+from pathlib  import Path
+from datetime import timedelta
+
+# Environment Variables
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s0tjbc)*m5bj9&nae%o3d05p$txdjnj!glhvjb^47mpp+y39j-'
 DEBUG = True
 ALLOWED_HOSTS = []
 
+# Applications instaled
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -18,6 +23,7 @@ INSTALLED_APPS = [
     'django_filters',
 ]
 
+# Django middlewares
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -28,7 +34,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'inmuebles.urls'
+
 
 TEMPLATES = [
     {
@@ -55,7 +63,6 @@ DATABASES = {
     }
 }
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -71,16 +78,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# TimeZone specific settings
 LANGUAGE_CODE = 'es-PY'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-
+# Static Filesystem
 STATIC_URL = '/static/'
 
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_PERMISSION_CLASSES': [
@@ -88,6 +98,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #    ]
 # }
 
+
+# RestFramework configuration
 REST_FRAMEWORK = {
     # 'DEFAULT_AUTHENTICATION_CLASSES':[
     #     'rest_framework.authentication.BasicAuthentication',
@@ -113,8 +125,12 @@ REST_FRAMEWORK = {
     }
 }
 
+
+# Tokens configuration
 SIMPLE_JWT = {
-    'ROTATE_REFRESH_TOKENS': True
+    'ROTATE_REFRESH_TOKENS': True,
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=365),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=365),
 }
 
 

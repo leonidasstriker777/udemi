@@ -15,7 +15,10 @@ class ComentarioSerializer(serializers.ModelSerializer):
 class EdificacionSerializer(serializers.ModelSerializer):
     
     comentarios = ComentarioSerializer(many=True, read_only=True)
-    
+
+    # Mostrar nombre de la Empresa. Y no el id
+    empresa_nombre = serializers.CharField(source='empresa.nombre')
+
     class Meta:
         model = Edificacion
         fields = "__all__"
