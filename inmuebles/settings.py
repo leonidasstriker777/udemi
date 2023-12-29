@@ -88,19 +88,29 @@ AUTH_USER_MODEL = 'user_app.Account'
 #    }
 #}
 
-# POSTGRES CONEXION
+# POSTGRES CONEXION LOCAL
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME':'udemy',
+#        'USER': 'postgresql',
+#        'PASSWORD': 'postgresql',
+#        'HOST': 'localhost',
+#        'PORT': '5432',
+#    }
+#}
+
+# POSTGRES CONEXION PRODUCCION
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'udemy',
-        'USER': 'postgresql',
-        'PASSWORD': 'postgresql',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': '2dbEEe15CB*g5C6e52DF5Afa522B1a16',
+        'HOST': 'roundhouse.proxy.rlwy.net',
+        'PORT': '27035',
     }
 }
-
-
 
 
 # Password validation
