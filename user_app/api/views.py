@@ -55,6 +55,7 @@ def login_view(request):
         email = request.data.get('email')
         password = request.data.get('password')
         account = auth.authenticate(email=email, password=password)
+        # Corregir identacion
         if account is not None:
             data['response']='El Login fue exitoso'
             data['username']=account.username
